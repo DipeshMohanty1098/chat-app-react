@@ -8,15 +8,18 @@ const Name = () => {
     const history = useHistory();
 
     const handleClick = () => {
+        //a little form validation
         if (name == ''){
             setError('Please enter a valid name :)')
         } else {
+        //if everything is handy dandy, go ahead and push the user to the chat page
         localStorage.setItem( 'Name', name );
         history.push("/chat/chatRoom=" + "chatRoom1");
         }
     }
 
     useEffect(() => {
+        //if the user is already logged in and trying to go back to the login page, redirect to the chat page
         if (localStorage.getItem('Name') != null){
             history.push("/chat/chatRoom=" + "chatRoom1")
         }
