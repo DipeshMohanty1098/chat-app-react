@@ -8,7 +8,9 @@ const ChatRooms = () => {
     const [search, setFilter] = useState('');
     const [chatName, setChatName] = useState('');
     const [error, setError] = useState('');
-
+    
+    
+    //function for the user to create a new chat room
     const handleSubmit = (e) => {
         e.preventDefault();
         const chatRoomObj = {chatRoomName: chatName}
@@ -18,10 +20,12 @@ const ChatRooms = () => {
             body: JSON.stringify(chatRoomObj)
         }).then((res)=>{
             if (res.status == 409){
+                //in case if it's a duplicate name
                 setColor('red')
                 setError("Chat Room Name already taken. Please choose another name.")
             }
             else{
+                //if everything is fine, give success prompt
                 setColor('green')
                 setError('Chat Room created succesfully, refresh page to view!')
                 setChatName('')
@@ -33,7 +37,8 @@ const ChatRooms = () => {
     const refresh = () => {
         window.location.reload();
     }
-
+    
+    //fetch all the chatRooms
     useEffect(()=>{
         fetch('http://192.168.0.108:5001/chatRooms').then((res)=>{
             if (res.ok){
@@ -44,7 +49,9 @@ const ChatRooms = () => {
             setChatRooms(data)
         })
     }, [])
-
+    
+    //search by chat room name
+    
     useEffect(() => {
         console.log("called")
         setFilteredChatRooms(
