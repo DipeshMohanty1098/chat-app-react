@@ -8,15 +8,13 @@ const MessagePage = () => {
     const messagesEndRef = useRef(null)
     const [message, setMessage] = useState('')
     const [chatRoom, setChatRoom] = useState('');
-    //const author = "Dipesh Mohanty";
     const [author, setAuthor] = useState('');
     const [websocketID, setID] = useState(0)
     const  [websocket, setWebsocket] = useState(null);
-    //const websocket = new WebSocket("ws://192.168.0.108:5050/");
     const [websocketData, setWebsocketData] = useState(null);
 
+    //function to send notification to the websocket server when user posts a message to the DB
     const sendNotification = async () => {
-        //const websocket = new WebSocket("ws://192.168.0.108:5050/");
         console.log("websocket: " + websocket);
         fetch("http://192.168.0.108:5000/messages/" + params.chatRoomName)
         .then(res => {
@@ -31,7 +29,7 @@ const MessagePage = () => {
     })  
     }
 
-
+    //post the message to the DB
     const handleSubmit = (e) => {
         e.preventDefault();
         const messageObj = {message, author, chatRoom};
@@ -56,7 +54,7 @@ const MessagePage = () => {
         
     }
 
-
+    //fetch the messages of the chat room the user is currently in 
     useEffect(()=>{
         setAuthor(localStorage.getItem('Name'));
         setChatRoom(params.chatRoomName);
@@ -75,7 +73,7 @@ const MessagePage = () => {
     }, [])
 
 
-    
+    //auto scroll to the bottom of the page whenever there is a new message
     useEffect(() => {
         if (messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView(
@@ -88,11 +86,8 @@ const MessagePage = () => {
           console.log("being called!!!!");
         }, [messages]);
     
-    const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-    }
-
-    
+   
+ 
     return(
         <div>
         <div className="center">
@@ -119,6 +114,7 @@ const MessagePage = () => {
                 </div>
                 
             ),
+            //upon rendering the template, subscribe client to the server changes
             websocket.onmessage = function (event) {
                 const data = JSON.parse(event.data);
                 switch (data.type) {
@@ -133,7 +129,8 @@ const MessagePage = () => {
             ): <h1 style={{textAlign: "center"}}>Loading...</h1>}
             </div>
             <div className="col-12">   
-            <div className="center">     
+            <div className="center">    
+            //form for the message
             <form onSubmit={handleSubmit} className="form">
             <input type="text" placeholder="Enter your message" onChange={(e)=>setMessage(e.target.value)} value={message}/>
             <div> 
