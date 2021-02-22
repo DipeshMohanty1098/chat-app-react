@@ -5,7 +5,7 @@ A simple chat app, where you can chat with multiple people in various chat rooms
 
 # Search for any chatRoom
 
-![alt text](https://github.com/DipeshMohanty1098/chat-app-react/blob/main/assets/dashboard.PNG)
+![alt text](https://github.com/DipeshMohanty1098/chat-app-react/blob/main/assets/main.PNG)
 
 # Send messages to the chat room
 
@@ -13,6 +13,7 @@ A simple chat app, where you can chat with multiple people in various chat rooms
 
 # Browse through all the available chat rooms
 
-![alt text](https://github.com/DipeshMohanty1098/chat-app-react/blob/main/assets/main.PNG)
+![alt text](https://github.com/DipeshMohanty1098/chat-app-react/blob/main/assets/dashboard.PNG)
+
 
 
